@@ -9,16 +9,19 @@
 
 {{ config(materialized='table') }}
 
-with source_data as (
+with google_analytics_base as (
 
-    select 1 as id
-    union all
-    select null as id
+    SELECT 
+    DISTINCT
+    event_date
+    , (SELECT ep.value.int_value FROM UNNEST(event_params) ep WHERE ep.key= 'ga_session_id') as sessionid
+    , user_pseudo_id
+    FROM `sandbox-sd.ga4_RAW.events_20230606` 
 
 )
 
 select *
-from source_data
+from google_analytics_base
 
 /*
     Uncomment the line below to remove records with null `id` values
