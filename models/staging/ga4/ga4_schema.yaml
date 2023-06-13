@@ -1,0 +1,21 @@
+
+version: 2
+
+models:
+    - name: stg_google_analytics_base
+      description: "this is the basis for GA4 queries"
+      columns:
+          - name: sessionid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+
+    - name: stg_goals
+      description: "here your can find all ga4 goals"
+      columns:
+          - name: sessionid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
